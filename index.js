@@ -9,5 +9,5 @@ app.listen(port, () => {
 });
 
 app.get("/", (req, res) => {
-    res.send("<h1>Testing</h1>");
+    res.render("index.html");
 })
