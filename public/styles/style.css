@@ -11,13 +11,14 @@ body {
     background: black;
     position: relative;
     overflow-x: hidden;
+    overflow-y: hidden;
 
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     gap: 30vh;
-   
+   margin: 40px;
 }
 
 
@@ -26,8 +27,8 @@ body {
     background-color: yellow;
     position: absolute;
     top: -200px;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     filter: blur(29px);
 }
 
