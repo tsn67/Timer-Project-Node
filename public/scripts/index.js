@@ -55,6 +55,13 @@ setInterval(() => {
 
 },500);
 
+setInterval(() => {
+    var playButton = $(".play-button");
+    playButton.animate({
+        color: "seagreen"
+    }, 1000);
+}, 3000);
+
 var isUp = true;
 var lock = false;
 
