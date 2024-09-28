@@ -8,6 +8,67 @@ $(document).ready(function () {
     startCurrentTime();
 });
 
+
+//play button functionality
+var playButton = $(".play-button");
+let play = false;
+var timerId = null;
+var hour = 0;
+var minute = 0;
+var seconds = 0;
+var timerLabel = $(".timer-label");
+
+//function to create an interval and returns the id of the interval
+function startInterval() {
+    seconds++;
+    if(seconds == 60) {
+        minute++;
+        if(minute == 60) {
+            hour++;
+        }
+        minute %= 60;
+    }
+    seconds %= 60;
+    timerLabel.text(`${hour}:${minute}:${seconds}`);
+
+    let id = setInterval(()=> {
+        seconds++;
+        if(seconds == 60) {
+            minute++;
+            if(minute == 60) {
+                hour++;
+            }
+            minute %= 60;
+        }
+        seconds %= 60;
+        timerLabel.text(`${hour}:${minute}:${seconds}`);
+    }, 1000);
+
+    return id;
+}
+
+var restartButton = $(".restart-button");
+restartButton.click(() => {
+    minute = 0,hour = 0,seconds = 0;
+    timerLabel.text("0:0:0");
+    playButton.text("play");
+    play = false;
+    clearInterval(timerId);
+});
+
+playButton.click((event) => {
+    if(!play) {
+        timerId = startInterval();
+        playButton.text("pause");
+        play = true;
+    } else {
+        clearInterval(timerId);
+        playButton.text("play");
+        play = false;
+    }
+});
+
+
 var timeLabel = $("#current-time");
 
     function startCurrentTime() {
@@ -36,7 +97,7 @@ var timeLabel = $("#current-time");
 
 setInterval(() => {
 
-    let circle = $('<div></div>');
+    let circle = $('<div></div>'); //creating an element
     circle.addClass("circle");
     circle.css("top", "-200px");
     circle.css("left", Math.floor(Math.random()* 100)+"%");
@@ -55,19 +116,10 @@ setInterval(() => {
 
 },500);
 
-setInterval(() => {
-    var playButton = $(".play-button");
-    playButton.animate({
-        color: "seagreen"
-    }, 1000);
-}, 3000);
-
 var isUp = true;
-var lock = false;
 
-$('button').click(function () {
+$('.clock').click(function () {
 
-    
     if(isUp) {
         
         // Animate the scroll to 500px down over 1000ms (1 second)
@@ -75,22 +127,22 @@ $('button').click(function () {
             scrollTop: 900 // Change this value to scroll to a specific position
         }, 600);
 
-        $('button').animate({
+        $('.clock').animate({
             top: '180px'
         }, 600);
         isUp = false;
-        $("button").text("Timer");
+        $(".clock").text("Timer");
     } else {
        
         $('html, body').animate({
             scrollTop: -900 
         }, 600);
 
-        $('button').animate({
+        $('.clock').animate({
             top: '-150px'
         }, 600);
         isUp = true;
-        $("button").text("clock");
+        $(".clock").text("clock");
     }
 });
 
